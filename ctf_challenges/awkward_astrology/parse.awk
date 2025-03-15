@@ -4,9 +4,6 @@ function is_valid_month(month) {
 
 
 {
-    # Remove possible extra spaces around the date input
-    #gsub(/[[:space:]]/, "", $0)
-
     # Check for date format MM-DD
     if ($0 ~ /^[0-9]{2}-[0-9]{2}$/) {
         month = substr($0, 1, 2)

@@ -6,7 +6,7 @@
 
     <form method="post" action="">
         <label for="inputText">Birthdate</label><br>
-        <textarea name="inputText" id="inputText" rows="1" cols="15"></textarea><br><br>
+        <textarea name="inputText" id="inputText" rows="3" cols="15"></textarea><br><br>
         <input type="submit" value="Submit">
     </form>
 
