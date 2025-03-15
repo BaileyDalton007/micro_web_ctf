@@ -8,3 +8,5 @@ EOL
 
 # create flag.txt files
 echo "CYCWRU{test_flag_1}" > ./admin_panel/flag.txt
+
+echo "CYCWRU{test_flag_2}" > ./awkward_astrology/flag.txt
