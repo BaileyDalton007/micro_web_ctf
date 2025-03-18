@@ -26,7 +26,7 @@ if (isset($_GET['username'])) {
 </form>
 
 <script>
-    // JavaScript to prevent form submission if the username is 'admin'
+    // js validation to prevent form submission if the username is 'admin'
     function validateUsername() {
         var username = document.getElementById('username').value.trim();
         if (username === 'admin') {
