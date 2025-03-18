@@ -10,3 +10,5 @@ EOL
 echo "CYCWRU{test_flag_1}" > ./admin_panel/flag.txt
 
 echo "CYCWRU{test_flag_2}" > ./awkward_astrology/flag.txt
+
+echo "CYCWRU{test_flag_3}" > ./milk_clicker/flag.txt

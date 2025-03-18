@@ -9,7 +9,7 @@ if (isset($_COOKIE['score'])) {
 // Check if the score needs to be updated (when the image is clicked)
 if (isset($_GET['increment'])) {
     $score++;
-    setcookie('score', $score, time() + (86400 * 30), "/"); // Cookie lasts for 30 days
+    setcookie('score', $score, time() + (86400), "/"); // Cookie lasts for a day
     header("Location: page.php");
     exit();
 }
