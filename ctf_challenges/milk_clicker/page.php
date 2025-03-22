@@ -13,6 +13,9 @@ if (isset($_GET['increment'])) {
     header("Location: page.php");
     exit();
 }
+
+$flag = file_get_contents('flag.txt');
+
 ?>
 
 <!DOCTYPE html>
@@ -46,11 +49,22 @@ if (isset($_GET['increment'])) {
         <p>Your milk: <?php echo $score; ?></p>
     </div>
 
-    <!-- milk image to click -->
-    <a href="?increment=true">
-        <img src="milk.webp" alt="Clickable milk!" class="clickable-image">
-    </a>
+    <?php if ($score > 8_000_000_000): ?>
+        <div class="flag">
+        <p>
+            Congratulations, you have solved world hunger!<br>
+                
+            Here is your flag: <?php echo $flag; ?><br>
 
-    <p>Click the milk to get more milk</p>
+            Forget the lactose intolerant, they were goners anyway.<br>
+        </p>
+        </div>
+    <?php else: ?>
+        <a href="?increment=true">
+            <img src="milk.webp" alt="Clickable milk!" class="clickable-image">
+        </a>
+
+        <p>Click the milk to get more milk</p>
+    <?php endif; ?>
 </body>
 </html>
