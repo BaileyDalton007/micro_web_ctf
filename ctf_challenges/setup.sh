@@ -1,9 +1,14 @@
-# Do not let apache serve flag.txt files
+# Do not let apache serve flag.txt files or markdown files
 cat > .htaccess <<EOL
 <Files "flag.txt">
     Order Allow,Deny
     Deny from all
 </Files>
+
+<FilesMatch "\.md$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
 EOL
 
 # create flag.txt files
