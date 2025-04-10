@@ -28,5 +28,7 @@ echo "CYCWRU{test_flag_2}" > ./awkward_astrology/flag.txt
 
 echo "CYCWRU{test_flag_3}" > ./milk_clicker/flag.txt
 
+# this challenge uses a submodule for encoding the file as a chess game
+git submodule update --init --recursive
 cd gentlemans_game; ./create_challenge.sh "CYCWRU{test_flag_4}"; cd ..
 
