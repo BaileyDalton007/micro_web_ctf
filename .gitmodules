@@ -1,0 +1,3 @@
+[submodule "ctf_challenges/ctf_challenges/gentlemans_game/chessencryption"]
+	path = ctf_challenges/ctf_challenges/gentlemans_game/chessencryption
+	url = https://github.com/Juni-crypto/chessencryption.git
