@@ -1,2 +1,3 @@
 *flag.txt
 *.htaccess
+__pycache__/
