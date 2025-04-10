@@ -5,12 +5,12 @@ cat > .htaccess <<EOL
     Deny from all
 </Files>
 
-<Files "\.sh$">
+<Files ".sh$">
     Order Allow,Deny
     Deny from all
 </Files>
 
-<Files "chessencryption$">
+<Files "gentlemans_game/*.py$">
     Order Allow,Deny
     Deny from all
 </Files>

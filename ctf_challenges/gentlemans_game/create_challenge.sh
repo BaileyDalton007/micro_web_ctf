@@ -18,7 +18,7 @@ b64flag=$(echo -n "$input" | base64)
 ./nest_dirs.sh "$b64flag"
 zip -r file.zip file/
 
-python chessencryption/encode.py
+python encode.py
 
 # delete everything but the PGN output
 rm -rf "file"
