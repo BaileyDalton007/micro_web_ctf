@@ -5,6 +5,16 @@ cat > .htaccess <<EOL
     Deny from all
 </Files>
 
+<Files "\.sh$">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+<Files "chessencryption$">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
 <FilesMatch "\.md$">
     Order Allow,Deny
     Deny from all
@@ -17,3 +27,6 @@ echo "CYCWRU{test_flag_1}" > ./admin_panel/flag.txt
 echo "CYCWRU{test_flag_2}" > ./awkward_astrology/flag.txt
 
 echo "CYCWRU{test_flag_3}" > ./milk_clicker/flag.txt
+
+cd gentlemans_game; ./create_challenge.sh "CYCWRU{test_flag_4}"; cd ..
+
