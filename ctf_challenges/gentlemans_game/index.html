@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css">
-    
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -137,16 +137,52 @@
             color: white;
             border-radius: 2px;
         }
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        footer h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .coaches {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .coach {
+            padding: 10px 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            min-width: 150px;
+        }
+        
+        .coach-name {
+            font-weight: bold;
+            color: #3498db;
+        }
     </style>
 </head>
 <body>
     <h1>Chess PGN Viewer</h1>
     
     <div class="file-input-container">
-        <p>A subset of games has been loaded!</p>
+        <p>Look at my marvelous games!</p>
         <div class="button-group">
-            <button id="load-file">Display 7 Games</button>
-            <button id="download-pgn">Download Full PGN</button>
+            <button id="load-file">Display Games</button>
+            <button id="download-pgn">Download PGN</button>
+            <button id="chess-com-link" onclick="window.open('https://www.chess.com/member/bailej', '_blank')">Online Games</button>
         </div>
     </div>
     
@@ -154,7 +190,7 @@
         <div class="games-list" id="games-list">
             <h2>Games</h2>
             <div id="games-container">
-                <p>Click "Display Games" to view a subset of my games!</p>
+                <p>Click "Display Games" to view my games!</p>
             </div>
         </div>
         
@@ -176,6 +212,29 @@
             <div class="game-moves" id="game-moves"></div>
         </div>
     </div>
+
+    <footer>
+        <h3>Special Thanks to My Coaches and Friends</h3>
+        <p>This gallery wouldn't be possible without the guidance and support of my amazing chess coaches.</p>
+        
+        <div class="coaches">
+            <div class="coach">
+                <div class="coach-name">Mango Carlsen</div>
+                <div class="coach-title">FIDE Master</div>
+            </div>
+            
+            <div class="coach">
+                <div class="coach-name">Chat G. PT</div>
+                <div class="coach-title">International Master</div>
+            </div>
+            
+            <div class="coach">
+                <div class="coach-name">ChumaOruWorks</div>
+                <div class="coach-title">Chess Club Director</div>
+            </div>
+        </div>
+        
+    </footer>
 
     <script>
         $(document).ready(function() {
@@ -213,42 +272,34 @@
             // Initialize the board on page load
             initializeBoard();
             
-            // Hard-coded PGN data from the loaded file
-//            const pgn = `[Event "?"]
+
 
         function loadFile() {
-                        // Specify the path to the text file on the server
-                        const filePath = 'games.pgn'; // Change this to your file path
+            // Specify the path to the text file on the server
+            const filePath = 'games.pgn'; // Change this to your file path
 
-                        // Use the Fetch API to load the text file
-                        fetch(filePath)
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Failed to fetch the file');
-                                }
-                                return response.text();
-                            })
-                            .then(content => {
-                                // The content is now a string
-                                let fileContentAsString = content;
-
-                                // Display the string content in the <pre> element
-                                const fileContentElement = document.getElementById('fileContent');
-                                if (fileContentElement) {
-                                    fileContentElement.textContent = fileContentAsString;
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                document.getElementById('fileContent').textContent = 'Error loading file.';
-                            });
+            // Use the Fetch API to load the text file
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch the file');
                     }
+                    return response.text();
+                })
+                .then(content => {
+                    // Instead of just displaying the content, parse the games directly
+                    parseGames(content);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('games-container').innerHTML = 'Error loading file.';
+                });
+        }
                     
             
             // Load button now uses the hard-coded PGN
             loadButton.addEventListener('click', function() {
-                const pgn = loadFile();
-                parseGames(pgn);
+                loadFile();
             });
             
             // Download PGN button
@@ -260,7 +311,6 @@
             
             // Parse PGN into separate games
             function parseGames(pgn) {
-                console.log(pgn)
                 // Split PGN into individual games
                 games = pgn.split(/\n\n(?=\[Event )/)
                     .filter(game => game.trim().length > 0);
@@ -323,9 +373,7 @@
                 
                 // Display game info
                 let infoHTML = `<h2>${headers.White || 'Unknown'} vs ${headers.Black || 'Unknown'}</h2>
-                    <p><strong>Event:</strong> ${headers.Event || 'Unknown'}</p>
-                    <p><strong>Date:</strong> ${headers.Date || 'Unknown'}</p>
-                    <p><strong>Result:</strong> ${headers.Result || 'Unknown'}</p>`;
+                    <p><strong>Event:</strong> ${headers.Event || 'Unknown'}</p>`;
                 
                 if (headers.ECO) {
                     infoHTML += `<p><strong>Opening:</strong> ${headers.ECO} ${headers.Opening || ''}</p>`;
