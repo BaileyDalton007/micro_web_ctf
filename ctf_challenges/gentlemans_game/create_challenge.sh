@@ -19,6 +19,7 @@ b64flag=$(echo -n "$input" | base64)
 zip -r file.zip file/
 
 python encode.py
+python populate_metadata.py
 
 # delete everything but the PGN output
 rm -rf "file"
