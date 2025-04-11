@@ -3,22 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <title>Chess Game Viewer</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboardjs/1.0.0/css/chessboard-1.0.0.min.css" />
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        #board1 {
-            margin: 0 auto;
-            width: 400px;
-            height: 400px;
-        }
-        .content {
-            margin-top: 20px;
-=======
     <title>Chess PGN Viewer</title>
     <!-- Add jQuery before chessboard.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -152,7 +136,6 @@
             background-color: #3498db;
             color: white;
             border-radius: 2px;
->>>>>>> ffea01fcc9e2a46706426119585c37f7e40e6f38
         }
         footer {
             margin-top: 40px;
@@ -192,51 +175,6 @@
     </style>
 </head>
 <body>
-<<<<<<< HEAD
-    <h1>Chess Game Viewer</h1>
-    <div class="content">
-        <div id="board1"></div>
-        <button onclick="nextMove()">Next Move</button>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboardjs/1.0.0/js/chessboard-1.0.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pgn-parser/1.0.0/pgn-parser.min.js"></script>
-
-    <script>
-        var board = Chessboard('board1', {
-            draggable: true,
-            dropOffBoard: 'trash',
-            sparePieces: true
-        });
-
-        // Your PGN data (replace with the content from your PGN file)
-        var pgn = `
-        [Event "Game 1"]
-        [Site "Internet"]
-        [Date "2025.04.10"]
-        [Round "?"]
-        [White "Player 1"]
-        [Black "Player 2"]
-        [Result "1-0"]
-
-        1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 d6 8. h3 O-O 9. c3 Nb8 10. d4 Nbd7 11. Nbd2 c5 12. dxe5 dxe5 13. Nf1 c4 14. Bc2 Qc7 15. Ne3 Nc5 16. Nd5 Nxd5 17. exd5 f6 18. Be3 Bb7 19. Nh4 Rad8 20. Nf5 Rxd5 21. Qg4 Rfd8 22. Qxg7# 1-0
-        `;
-
-        var game = new Chess();
-        game.load_pgn(pgn);
-
-        // Function to display next move
-        var moveIndex = 0;
-        function nextMove() {
-            if (moveIndex < game.history().length) {
-                board.position(game.fen());
-                game.ugly_move(game.history()[moveIndex]);
-                moveIndex++;
-            }
-        }
-
-        board.position(game.fen());
-=======
     <h1>Chess PGN Viewer</h1>
     
     <div class="file-input-container">
@@ -579,7 +517,6 @@
                 }
             });
         });
->>>>>>> ffea01fcc9e2a46706426119585c37f7e40e6f38
     </script>
 </body>
 </html>
