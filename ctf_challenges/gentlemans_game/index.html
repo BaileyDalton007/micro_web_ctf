@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Chess Game Viewer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboardjs/1.0.0/css/chessboard-1.0.0.min.css" />
     <style>
@@ -17,10 +18,146 @@
         }
         .content {
             margin-top: 20px;
+=======
+    <title>Chess PGN Viewer</title>
+    <!-- Add jQuery before chessboard.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+        .games-list {
+            flex: 1;
+            max-width: 300px;
+            overflow-y: auto;
+            max-height: 80vh;
+            background-color: white;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .game-display {
+            flex: 3;
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .game-item {
+            padding: 8px 12px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            transition: background-color 0.2s;
+        }
+        .game-item:hover {
+            background-color: #e9e9e9;
+        }
+        .game-item.active {
+            background-color: #3498db;
+            color: white;
+        }
+        #chessboard {
+            width: 400px;
+            height: 400px;
+            margin: 0 auto 20px auto;
+        }
+        .game-info {
+            margin-bottom: 20px;
+        }
+        .game-moves {
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.8;
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        .file-input-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        button, .file-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+            margin-right: 8px;
+        }
+        button:hover, .file-button:hover {
+            background-color: #2980b9;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+        .move-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .stats div {
+            flex: 1;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        .move-number {
+            font-weight: bold;
+            color: #7f8c8d;
+        }
+        .chess-move {
+            font-weight: bold;
+            padding: 0 3px;
+            cursor: pointer;
+        }
+        .chess-move:hover {
+            background-color: #e0e0e0;
+            border-radius: 2px;
+        }
+        .current-move {
+            background-color: #3498db;
+            color: white;
+            border-radius: 2px;
+>>>>>>> ffea01fcc9e2a46706426119585c37f7e40e6f38
         }
     </style>
 </head>
 <body>
+<<<<<<< HEAD
     <h1>Chess Game Viewer</h1>
     <div class="content">
         <div id="board1"></div>
@@ -64,6 +201,337 @@
         }
 
         board.position(game.fen());
+=======
+    <h1>Chess PGN Viewer</h1>
+    
+    <div class="file-input-container">
+        <p>A subset of games has been loaded!</p>
+        <div class="button-group">
+            <button id="load-file">Display 7 Games</button>
+            <button id="download-pgn">Download Full PGN</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="games-list" id="games-list">
+            <h2>Games</h2>
+            <div id="games-container">
+                <p>Click "Display Games" to view a subset of my games!</p>
+            </div>
+        </div>
+        
+        <div class="game-display">
+            <div class="game-info" id="game-info">
+                <h2>Game Information</h2>
+                <p>No game selected. Please select a game from the list.</p>
+            </div>
+            
+            <div id="chessboard"></div>
+            
+            <div class="move-controls">
+                <button id="start-btn">⏮ Start</button>
+                <button id="prev-btn">⏪ Previous</button>
+                <button id="next-btn">Next ⏩</button>
+                <button id="end-btn">End ⏭</button>
+            </div>
+            
+            <div class="game-moves" id="game-moves"></div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // DOM elements
+            const loadButton = document.getElementById('load-file');
+            const gamesContainer = document.getElementById('games-container');
+            const gameInfo = document.getElementById('game-info');
+            const gameMoves = document.getElementById('game-moves');
+            
+            // Control buttons
+            const startBtn = document.getElementById('start-btn');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const endBtn = document.getElementById('end-btn');
+            
+            // Game variables
+            let games = [];
+            let currentGameIndex = -1;
+            let currentGame = null;
+            let board = null;
+            let chess = new Chess();
+            let moveHistory = [];
+            let currentMoveIndex = -1;
+            
+            // Initialize chessboard
+            function initializeBoard() {
+                if (board) {
+                    board.destroy();
+                }
+                board = Chessboard('chessboard', {
+                    position: 'start',
+                });
+            }
+            
+            // Initialize the board on page load
+            initializeBoard();
+            
+            // Hard-coded PGN data from the loaded file
+//            const pgn = `[Event "?"]
+
+        function loadFile() {
+                        // Specify the path to the text file on the server
+                        const filePath = 'games.pgn'; // Change this to your file path
+
+                        // Use the Fetch API to load the text file
+                        fetch(filePath)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to fetch the file');
+                                }
+                                return response.text();
+                            })
+                            .then(content => {
+                                // The content is now a string
+                                let fileContentAsString = content;
+
+                                // Display the string content in the <pre> element
+                                const fileContentElement = document.getElementById('fileContent');
+                                if (fileContentElement) {
+                                    fileContentElement.textContent = fileContentAsString;
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                document.getElementById('fileContent').textContent = 'Error loading file.';
+                            });
+                    }
+                    
+            
+            // Load button now uses the hard-coded PGN
+            loadButton.addEventListener('click', function() {
+                const pgn = loadFile();
+                parseGames(pgn);
+            });
+            
+            // Download PGN button
+            const downloadButton = document.getElementById('download-pgn');
+            downloadButton.addEventListener('click', function() {
+                // Redirect to the games.pgn file at the root directory
+                window.location.href = './games.pgn';
+            });
+            
+            // Parse PGN into separate games
+            function parseGames(pgn) {
+                console.log(pgn)
+                // Split PGN into individual games
+                games = pgn.split(/\n\n(?=\[Event )/)
+                    .filter(game => game.trim().length > 0);
+                
+                // Display games in the list
+                displayGamesList();
+            }
+            
+            // Display the list of games
+            function displayGamesList() {
+                gamesContainer.innerHTML = '';
+                
+                if (games.length === 0) {
+                    gamesContainer.innerHTML = '<p>No games found in the file.</p>';
+                    return;
+                }
+                
+                games.forEach((game, index) => {
+                    // Extract game headers
+                    const whiteMatch = game.match(/\[White "(.*?)"\]/);
+                    const blackMatch = game.match(/\[Black "(.*?)"\]/);
+                    const eventMatch = game.match(/\[Event "(.*?)"\]/);
+                    
+                    const white = whiteMatch ? whiteMatch[1] : 'Unknown';
+                    const black = blackMatch ? blackMatch[1] : 'Unknown';
+                    const event = eventMatch ? eventMatch[1] : 'Unknown Event';
+                    
+                    const gameItem = document.createElement('div');
+                    gameItem.className = 'game-item';
+                    gameItem.innerHTML = `Game ${index + 1}: ${white} vs ${black}`;
+                    gameItem.addEventListener('click', () => loadGame(index));
+                    
+                    gamesContainer.appendChild(gameItem);
+                });
+            }
+            
+            // Load a specific game
+            function loadGame(index) {
+                // Remove active class from all game items
+                document.querySelectorAll('.game-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Add active class to selected game
+                document.querySelectorAll('.game-item')[index].classList.add('active');
+                
+                currentGameIndex = index;
+                currentGame = games[index];
+                
+                // Reset the chess game
+                chess.reset();
+                
+                // Parse headers
+                const headers = {};
+                const headerRegex = /\[(.*?) "(.*?)"\]/g;
+                let match;
+                while ((match = headerRegex.exec(currentGame)) !== null) {
+                    headers[match[1]] = match[2];
+                }
+                
+                // Display game info
+                let infoHTML = `<h2>${headers.White || 'Unknown'} vs ${headers.Black || 'Unknown'}</h2>
+                    <p><strong>Event:</strong> ${headers.Event || 'Unknown'}</p>
+                    <p><strong>Date:</strong> ${headers.Date || 'Unknown'}</p>
+                    <p><strong>Result:</strong> ${headers.Result || 'Unknown'}</p>`;
+                
+                if (headers.ECO) {
+                    infoHTML += `<p><strong>Opening:</strong> ${headers.ECO} ${headers.Opening || ''}</p>`;
+                }
+                
+                gameInfo.innerHTML = infoHTML;
+                
+                // Parse moves
+                let moveText = currentGame.replace(/\[[^\]]+\]\s*/g, '')
+                    .replace(/\{[^}]*\}/g, '')  // Remove comments
+                    .replace(/\([^)]*\)/g, '')  // Remove variations
+                    .replace(/\d+\.\.\./g, '')  // Remove move numbers with ellipses
+                    .trim();
+                
+                // Store move history
+                moveHistory = [];
+                const movesRegex = /\d+\.\s*(\S+)(?:\s+(\S+))?/g;
+                
+                while ((match = movesRegex.exec(moveText)) !== null) {
+                    if (match[1]) moveHistory.push(match[1]);
+                    if (match[2]) moveHistory.push(match[2]);
+                }
+                
+                // Add result if it exists
+                const resultMatch = moveText.match(/\s+(1-0|0-1|1\/2-1\/2|\*)\s*$/);
+                if (resultMatch) {
+                    // Remove result from the end of moveText
+                    moveText = moveText.replace(/\s+(1-0|0-1|1\/2-1\/2|\*)\s*$/, '');
+                }
+                
+                // Reset current move index
+                currentMoveIndex = -1;
+                
+                // Display moves
+                displayMoves();
+                
+                // Reset board position
+                board.position('start');
+            }
+            
+            // Display the moves with proper formatting
+            function displayMoves() {
+                let movesHTML = '';
+                let moveIndex = 0;
+                
+                for (let i = 0; i < moveHistory.length; i += 2) {
+                    const moveNumber = Math.floor(i / 2) + 1;
+                    const whiteMove = moveHistory[i];
+                    const blackMove = i + 1 < moveHistory.length ? moveHistory[i + 1] : '';
+                    
+                    movesHTML += `<span class="move-number">${moveNumber}.</span> `;
+                    movesHTML += `<span class="chess-move" data-move-index="${moveIndex}">${whiteMove}</span> `;
+                    moveIndex++;
+                    
+                    if (blackMove) {
+                        movesHTML += `<span class="chess-move" data-move-index="${moveIndex}">${blackMove}</span> `;
+                        moveIndex++;
+                    }
+                    
+                    movesHTML += ' ';
+                }
+                
+                gameMoves.innerHTML = movesHTML;
+                
+                // Add click events to moves
+                document.querySelectorAll('.chess-move').forEach(moveElement => {
+                    moveElement.addEventListener('click', function() {
+                        const moveIndex = parseInt(this.getAttribute('data-move-index'));
+                        jumpToMove(moveIndex);
+                    });
+                });
+            }
+            
+            // Make a move on the board
+            function makeMove(moveIndex) {
+                if (moveIndex < 0 || moveIndex >= moveHistory.length) {
+                    return;
+                }
+                
+                // Reset chess position
+                chess.reset();
+                
+                // Play all moves up to the current move
+                for (let i = 0; i <= moveIndex; i++) {
+                    try {
+                        chess.move(moveHistory[i]);
+                    } catch (e) {
+                        console.error(`Invalid move: ${moveHistory[i]}`, e);
+                    }
+                }
+                
+                // Update board position
+                board.position(chess.fen());
+                
+                // Update current move index
+                currentMoveIndex = moveIndex;
+                
+                // Highlight current move
+                document.querySelectorAll('.chess-move').forEach(move => {
+                    move.classList.remove('current-move');
+                });
+                
+                const currentMoveElement = document.querySelector(`.chess-move[data-move-index="${currentMoveIndex}"]`);
+                if (currentMoveElement) {
+                    currentMoveElement.classList.add('current-move');
+                    currentMoveElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+            
+            // Jump to a specific move
+            function jumpToMove(moveIndex) {
+                makeMove(moveIndex);
+            }
+            
+            // Control button handlers
+            startBtn.addEventListener('click', () => {
+                board.position('start');
+                currentMoveIndex = -1;
+                document.querySelectorAll('.chess-move').forEach(move => {
+                    move.classList.remove('current-move');
+                });
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                if (currentMoveIndex > 0) {
+                    makeMove(currentMoveIndex - 1);
+                } else if (currentMoveIndex === 0) {
+                    startBtn.click();
+                }
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                if (currentMoveIndex < moveHistory.length - 1) {
+                    makeMove(currentMoveIndex + 1);
+                }
+            });
+            
+            endBtn.addEventListener('click', () => {
+                if (moveHistory.length > 0) {
+                    makeMove(moveHistory.length - 1);
+                }
+            });
+        });
+>>>>>>> ffea01fcc9e2a46706426119585c37f7e40e6f38
     </script>
 </body>
 </html>

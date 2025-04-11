@@ -18,8 +18,12 @@ b64flag=$(echo -n "$input" | base64)
 ./nest_dirs.sh "$b64flag"
 zip -r file.zip file/
 
+<<<<<<< HEAD
 python encode.py
 python populate_metadata.py
+=======
+python3 encode.py
+>>>>>>> ffea01fcc9e2a46706426119585c37f7e40e6f38
 
 # delete everything but the PGN output
 rm -rf "file"
