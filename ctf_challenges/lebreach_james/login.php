@@ -1,25 +1,22 @@
 <?php
 session_start();
 
-// Connect to database (adjust credentials as needed)
-$mysqli = new mysqli("localhost", "root", "", "testdb");
+// Connect to local SQLite3 database file
+$db = new SQLite3('users.db');
 
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
-
+// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    // 🚨 VULNERABLE: Directly interpolating user input into the SQL query
-    $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-    $result = $mysqli->query($sql);
+    // 🚨 VULNERABLE: Direct interpolation — this is SQL injection-prone
+    $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+    $result = $db->query($query);
 
-    if ($result && $result->num_rows > 0) {
+    if ($result && $result->fetchArray()) {
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
-        header("Location: protected.php");
+        header("Location: home.php");
         exit;
     } else {
         $error = "Invalid credentials!";
@@ -30,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Insecure Login</title>
+    <title>Login with SQLite</title>
 </head>
 <body>
     <h2>Login</h2>
