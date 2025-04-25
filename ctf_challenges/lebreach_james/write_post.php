@@ -1,6 +1,6 @@
 <?php
 // Create a connection to the SQLite3 database
-$db = new SQLite3('posts.db');
+$db = new SQLite3('assets/posts.db');
 session_start();
 
 // Check if the form has been submitted

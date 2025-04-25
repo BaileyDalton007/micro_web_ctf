@@ -1,6 +1,6 @@
 <?php
 // Create a connection to the SQLite3 database
-$db = new SQLite3('posts.db');
+$db = new SQLite3('assets/posts.db');
 
 // Define the number of posts per page
 $posts_per_page = 5;
@@ -29,6 +29,10 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     echo "<h2>" . htmlspecialchars($row['post_title']) . "</h2>";
     echo "<p>By: " . htmlspecialchars($row['author']) . "</p>";
     echo "<p>" . nl2br(htmlspecialchars($row['post_content'])) . "</p>";
+    
+    if ($row['image_path'] !== null) {
+        echo "<img src='assets/" . $row['image_path'] ."'>";
+    }
     echo "<hr>";
     echo "</div>";
 }

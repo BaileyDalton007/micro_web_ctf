@@ -1,6 +1,6 @@
 <?php
 // Connect to SQLite3 database (or create it if it doesn't exist)
-$db = new SQLite3('users.db');
+$db = new SQLite3('assets/users.db');
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -30,12 +30,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->bindValue(':password_hash', $hashedPassword, SQLITE3_TEXT);
                 $stmt->bindValue(':user_role', $user_role, SQLITE3_TEXT);
 
-                header("Location: login.php");
-                exit;
-
                 try {
                     $stmt->execute();
                     echo "Registration successful!";
+
+                    header("Location: login.php");
+                    exit;
+
                 } catch (Exception $e) {
                     echo "Error: " . htmlspecialchars($e->getMessage());
                 }

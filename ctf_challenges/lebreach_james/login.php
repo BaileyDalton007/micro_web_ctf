@@ -2,7 +2,7 @@
 session_start();
 
 // Connect to local SQLite3 database file
-$db = new SQLite3('users.db');
+$db = new SQLite3('assets/users.db');
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -10,19 +10,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     // this is SQL injection-prone
-    $query = "SELECT password_hash FROM users WHERE username = '$username'";
+    $query = "SELECT password_hash, user_role FROM users WHERE username = '$username'";
     $result = $db->query($query);
 
 
     if ($result) {
+        $output = $result->fetchArray();
         // get the stored hash and the hash of the input value to compare.
-        $account_hash = $result->fetchArray()['password_hash'];
+        $account_hash = $output['password_hash'];
         $hash_of_input = hash('sha256', $password);
+
+        $user_role = $output['user_role'];
 
         if ($account_hash === $hash_of_input) {
             
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $username;
+            $_SESSION['user_role'] = $user_role;
+            
             header("Location: home.php");
             exit;
 

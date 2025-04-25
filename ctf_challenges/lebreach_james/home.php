@@ -5,10 +5,17 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit;
 }
 
-echo "<h1>Welcome " . htmlspecialchars($_SESSION['username']) . "</h1>";
+if ($_SESSION['user_role'] == "1") {
+    echo "<h1>Welcome (MODERATOR) " . htmlspecialchars($_SESSION['username']) . "</h1>";
+} else {
+    echo "<h1>Welcome " . htmlspecialchars($_SESSION['username']) . "</h1>";
+}
 echo "<div class='header'>";
 echo "<a href='write_post.php' class='create-post-link'>Create a Post</a>";
 echo "<a href='posts.php' class='view-post-link'>View Posts</a>";
+if ($_SESSION['user_role'] == "1") {
+    echo "<a href='moderator_dashboard.php' class='moderator-link'>View Moderator Dashboard</a>";
+}
 echo "</div>";
 echo "<a href='login.php'>Logout</a>";
 ?>
@@ -39,12 +46,25 @@ echo "<a href='login.php'>Logout</a>";
         background-color: #f1f1f1;
         border-radius: 5px;
     }
+    .moderator-link {
+        font-size: 20px;
+        color: #0066cc;
+        text-decoration: none;
+        border: 1px solid #0066cc;
+        padding: 10px 20px;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+    }
     .create-post-link:hover {
         background-color: #0066cc;
         color: white;
     }
     .view-post-link:hover {
         background-color: #0066cc;
+        color: white;
+    }
+    .moderator-link:hover {
+        background-color:rgb(163, 45, 45);
         color: white;
     }
     .post {
