@@ -16,12 +16,12 @@ $db->exec("CREATE TABLE IF NOT EXISTS users (
 // Create usernames and their passwords
 $users = [
     "KingJamesFan42" => "SPURS17",
-    "LeBron4Life23" => "h3AT2",
-    "BronnyFan" => "KN1ckS00",
+    "LeBron4Life23" => "h3at2",
+    "BronnyFan" => "KN1CKS00",
     "HoopsMaster21" => "suns97",
     "BasketballGuru" => "HAWKS53",
     "YoungHoopsFan" => "NUGG3TS7",
-    "CavsForever" => "W1zards9",
+    "CavsForever" => "w1zards9",
     "BigFan22" => "grizz1ies87",
     "NBAHistorian" => "JAZZ8",
     "Lebron" => "THUND3R05"
