@@ -9,17 +9,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    // 🚨 VULNERABLE: Direct interpolation — this is SQL injection-prone
-    $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+    // this is SQL injection-prone
+    $query = "SELECT password_hash FROM users WHERE username = '$username'";
     $result = $db->query($query);
 
-    if ($result && $result->fetchArray()) {
-        $_SESSION['loggedin'] = true;
-        $_SESSION['username'] = $username;
-        header("Location: home.php");
-        exit;
+
+    if ($result) {
+        // get the stored hash and the hash of the input value to compare.
+        $account_hash = $result->fetchArray()['password_hash'];
+        $hash_of_input = hash('sha256', $password);
+
+        if ($account_hash === $hash_of_input) {
+            
+            $_SESSION['loggedin'] = true;
+            $_SESSION['username'] = $username;
+            header("Location: home.php");
+            exit;
+
+        } else {
+            $error = "Invalid credentials for account $username";
+        }
+
     } else {
-        $error = "Invalid credentials!";
+        $error = "Account $username does not exist";
     }
 }
 ?>
@@ -27,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login with SQLite</title>
+    <title>Login</title>
 </head>
 <body>
     <h2>Login</h2>
@@ -38,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <label>Password:</label><br>
         <input type="password" name="password" required><br><br>
+        <h5>due to the recent password breach, you are no longer automatically assigned a password so you may input your own.</h5>
 
         <input type="submit" value="Login">
     </form>

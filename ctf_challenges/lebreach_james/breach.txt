@@ -1,0 +1,3 @@
+alice, SPURS17
+bob, h3AT2
+john, THUND3R05

@@ -9,7 +9,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Protected Page</title>
+    <title>Home Page</title>
 </head>
 <body>
     <h2>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h2>
