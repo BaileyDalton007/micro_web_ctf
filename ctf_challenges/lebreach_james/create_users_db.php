@@ -1,6 +1,6 @@
 <?php
 // Create (or open) the database file
-$db = new SQLite3('users.db');
+$db = new SQLite3('lebron.db');
 
 // Create users table
 $db->exec("CREATE TABLE IF NOT EXISTS users (
@@ -26,7 +26,7 @@ foreach ($users as $username => $password) {
     $stmt->bindValue(':password_hash', $pw_hash, SQLITE3_TEXT);
     $stmt->execute();
 }
-echo "Database created and users inserted into users.db\n";
+echo "Database created and users inserted into lebron.db\n";
 
 
 $file = fopen("breach.txt", "w");

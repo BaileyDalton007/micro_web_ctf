@@ -2,7 +2,7 @@
 session_start();
 
 // Connect to local SQLite3 database file
-$db = new SQLite3('users.db');
+$db = new SQLite3('lebron.db');
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
