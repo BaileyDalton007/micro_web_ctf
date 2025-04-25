@@ -1,6 +1,6 @@
 <?php
 // Create (or open) the database file
-$db = new SQLite3('lebron.db');
+$db = new SQLite3('posts.db');
 
 // Create users table
 $db->exec("CREATE TABLE IF NOT EXISTS posts (
@@ -39,5 +39,5 @@ foreach ($posts as $post) {
     $stmt->bindValue(':author', $author, SQLITE3_TEXT);
     $stmt->execute();
 }
-echo "Database created and posts inserted into lebron.db\n";
+echo "Database created and posts inserted into posts.db\n";
 

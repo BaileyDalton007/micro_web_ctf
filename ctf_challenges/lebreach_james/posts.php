@@ -1,6 +1,6 @@
 <?php
 // Create a connection to the SQLite3 database
-$db = new SQLite3('lebron.db');
+$db = new SQLite3('posts.db');
 
 // Define the number of posts per page
 $posts_per_page = 5;

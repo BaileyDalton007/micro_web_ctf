@@ -1,6 +1,6 @@
 <?php
 // Create a connection to the SQLite3 database
-$db = new SQLite3('lebron.db');
+$db = new SQLite3('posts.db');
 session_start();
 
 // Check if the form has been submitted
@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Sanitize and collect form data
     $title = htmlspecialchars($_POST['title']);
     $author = 'guest';
-    if (isset($_SESSION['loggedin'])) {
+    if (isset($_SESSION['loggedin']) and $_SESSION['loggedin'] == true) {
         $author = $_SESSION['username'];
     }
 
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: posts.php");
         exit;
     } else {
-        echo "<p>Error creating post. Please try again later.</p>";
+        echo "<p>Error creating post: (SQLite3) " . $db->lastErrorMsg() . "</p>";
     }
 }
 ?>

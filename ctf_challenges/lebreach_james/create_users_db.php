@@ -1,11 +1,10 @@
 <?php
 // Create (or open) the database file
-$db = new SQLite3('lebron.db');
+$db = new SQLite3('users.db');
 
 // Create users table
 $db->exec("CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL,
+    username TEXT PRIMARY KEY,
     password_hash TEXT NOT NULL,
     user_role TEXT NULL
 )");
@@ -20,13 +19,17 @@ $users = [
 // Hash each user's password and add it to the db.
 foreach ($users as $username => $password) {
     $pw_hash = hash('sha256', $password);
+    $user_role = 0;
 
-    $stmt = $db->prepare("INSERT INTO users (username, password_hash) VALUES (:username, :password_hash)");
+    $stmt = $db->prepare("INSERT INTO users (username, password_hash, user_role) VALUES (:username, :password_hash, :user_role)");
     $stmt->bindValue(':username', $username, SQLITE3_TEXT);
     $stmt->bindValue(':password_hash', $pw_hash, SQLITE3_TEXT);
+    $stmt->bindValue(':user_role', $user_role, SQLITE3_TEXT);
     $stmt->execute();
 }
-echo "Database created and users inserted into lebron.db\n";
+
+chmod('users.db, 0666');
+echo "Database created and users inserted into users.db\n";
 
 
 $file = fopen("breach.txt", "w");
@@ -36,5 +39,5 @@ foreach ($users as $username => $password) {
 }
 
 fclose($file);
-echo "User dictionary written to users.txt\n";
+echo "User dictionary written to breach.txt\n";
 
