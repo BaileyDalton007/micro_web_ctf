@@ -34,62 +34,85 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a Post</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Reset default margin and padding */
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('assets/leSilly.jpg');
+            background-repeat: repeat; /* This will make the image tile */
+            padding: 15%;
+        }
+
         .container {
-            width: 80%;
             max-width: 800px;
-            margin: 20px auto;
+            margin: 0 auto;
             background-color: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             text-align: center;
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-size: 18px;
+            margin-bottom: 8px;
+            display: block;
             color: #333;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
+
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             font-size: 16px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            margin-top: 5px;
         }
+
         .form-group textarea {
             resize: vertical;
         }
+
         .form-group button {
-            padding: 10px 20px;
+            width: 100%;
+            padding: 12px;
             background-color: #0066cc;
             color: white;
             border: none;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
+
         .form-group button:hover {
             background-color: #005bb5;
         }
+
         .back-link {
             display: inline-block;
             margin-top: 20px;
-            text-decoration: none;
+            font-size: 18px;
             color: #0066cc;
+            text-decoration: none;
         }
+
         .back-link:hover {
             color: #005bb5;
         }
@@ -113,7 +136,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </form>
     <a href="posts.php" class="back-link">Back to Forum</a>
-    
 </div>
 
 </body>

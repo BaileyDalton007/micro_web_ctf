@@ -1,5 +1,9 @@
 <?php
 // Create (or open) the database file
+if (!file_exists('assets/')) {
+    mkdir('assets/');
+}
+
 $db = new SQLite3('assets/users.db');
 
 // Create users table
@@ -11,9 +15,16 @@ $db->exec("CREATE TABLE IF NOT EXISTS users (
 
 // Create usernames and their passwords
 $users = [
-    "alice" => "SPURS17",
-    "bob" => "h3AT2",
-    "john" => "THUND3R05"
+    "KingJamesFan42" => "SPURS17",
+    "LeBron4Life23" => "h3AT2",
+    "BronnyFan" => "KN1ckS00",
+    "HoopsMaster21" => "suns97",
+    "BasketballGuru" => "HAWKS53",
+    "YoungHoopsFan" => "NUGG3TS7",
+    "CavsForever" => "W1zards9",
+    "BigFan22" => "grizz1ies87",
+    "NBAHistorian" => "JAZZ8",
+    "Lebron" => "THUND3R05"
 ];
 
 // Hash each user's password and add it to the db.
@@ -28,14 +39,14 @@ foreach ($users as $username => $password) {
     $stmt->execute();
 }
 
-chmod('assets/users.db, 0666');
 echo "Database created and users inserted into users.db\n";
-
 
 $file = fopen("breach.txt", "w");
 
 foreach ($users as $username => $password) {
-    fwrite($file, "$username, $password\n");
+    if ($username !==  'Lebron') {
+        fwrite($file, "$username, $password\n");
+    }
 }
 
 fclose($file);
