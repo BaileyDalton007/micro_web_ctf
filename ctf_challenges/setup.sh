@@ -43,7 +43,8 @@ echo "CYCWRU{test_flag_2}" > ./awkward_astrology/flag.txt
 
 echo "CYCWRU{test_flag_3}" > ./milk_clicker/flag.txt
 
-cd gentlemans_game; ./create_challenge.sh "CYCWRU{test_flag_4}"; cd ..
+git submodule update --init --recursive
+ cd gentlemans_game; ./create_challenge.sh "CYCWRU{test_flag_4}"; cd ..
 
 
 echo "CYCWRU{test_flag_5}" > ./lebreach_james/flag.txt
