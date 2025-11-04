@@ -60,10 +60,14 @@ echo "Database created and users inserted into users.db\n";
 
 $file = fopen("breach.txt", "w");
 
-foreach ($users as $username => $password) {
+foreach ($mod_users as $username => $password) {
     if ($username !==  'Lebron') {
         fwrite($file, "$username, $password\n");
     }
+}
+
+foreach ($users as $username => $password) {
+    fwrite($file, "$username, $password\n");
 }
 
 fclose($file);
