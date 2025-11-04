@@ -13,6 +13,12 @@ $db->exec("CREATE TABLE IF NOT EXISTS users (
     user_role TEXT NULL
 )");
 
+$mod_users = [
+    "Lebron" => "THUND3R05",
+    "LeHeadMod"=> "RAPTORS55",
+    "LeAdmin" => "hawks2"
+];
+
 // Create usernames and their passwords
 $users = [
     "KingJamesFan42" => "SPURS17",
@@ -23,9 +29,20 @@ $users = [
     "YoungHoopsFan" => "NUGG3TS7",
     "CavsForever" => "w1zards9",
     "BigFan22" => "grizz1ies87",
-    "NBAHistorian" => "JAZZ8",
-    "Lebron" => "THUND3R05"
+    "NBAHistorian" => "JAZZ8"
 ];
+
+// Hash each super user's password and add it to the db.
+foreach ($mod_users as $username => $password) {
+    $pw_hash = hash('sha256', $password);
+    $user_role = 1;
+
+    $stmt = $db->prepare("INSERT INTO users (username, password_hash, user_role) VALUES (:username, :password_hash, :user_role)");
+    $stmt->bindValue(':username', $username, SQLITE3_TEXT);
+    $stmt->bindValue(':password_hash', $pw_hash, SQLITE3_TEXT);
+    $stmt->bindValue(':user_role', $user_role, SQLITE3_TEXT);
+    $stmt->execute();
+}
 
 // Hash each user's password and add it to the db.
 foreach ($users as $username => $password) {
